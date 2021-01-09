@@ -1,0 +1,60 @@
+﻿@model VoitureLocation.Models.t_client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.client_nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_num_identite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_num_identite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_adresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_adresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.client_mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.client_mobile)
+        </dd>
+
+    </dl>
+</div>
+<div class="btn btn-success">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+|
+<div class="btn btn-info">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id })
+</div>

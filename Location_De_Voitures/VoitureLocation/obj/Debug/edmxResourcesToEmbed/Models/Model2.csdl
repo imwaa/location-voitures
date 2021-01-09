@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocationVoituresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="t_client">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="client_nom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="client_prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="client_num_identite" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="client_adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="client_mobile" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="LocationVoituresEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="t_client" EntityType="Self.t_client" />
+    <EntitySet Name="t_location" EntityType="LocationVoituresModel.t_location" />
+    <EntitySet Name="t_voiture" EntityType="LocationVoituresModel.t_voiture" />
+    <EntitySet Name="t_retour" EntityType="LocationVoituresModel.t_retour" />
+  </EntityContainer>
+  <EntityType Name="t_location">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="voiture_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="marque_modele_voiture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="client_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="client_prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="frais_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_debut" Type="DateTime" Precision="0" />
+    <Property Name="date_fin" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="t_voiture">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="voiture_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="voiture_marque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="voiture_modele" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="voiture_immatriculation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="disponibilite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="t_retour">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="voiture_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="client_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="client_prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_reservation" Type="DateTime" Precision="0" />
+    <Property Name="jour_ecoules" Type="Int32" />
+    <Property Name="penalite_retard" Type="Int32" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LocationVoituresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_nom" Type="varchar" MaxLength="100" />
+          <Property Name="client_prenom" Type="varchar" MaxLength="100" />
+          <Property Name="client_num_identite" Type="varchar" MaxLength="100" />
+          <Property Name="client_adresse" Type="varchar" MaxLength="100" />
+          <Property Name="client_mobile" Type="int" />
+        </EntityType>
+        <EntityType Name="t_location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="voiture_num" Type="varchar" MaxLength="50" />
+          <Property Name="marque_modele_voiture" Type="varchar" MaxLength="50" />
+          <Property Name="client_nom" Type="varchar" MaxLength="50" />
+          <Property Name="client_prenom" Type="varchar" MaxLength="50" />
+          <Property Name="frais_location" Type="varchar" MaxLength="50" />
+          <Property Name="date_debut" Type="date" />
+          <Property Name="date_fin" Type="date" />
+        </EntityType>
+        <EntityType Name="t_retour">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="voiture_num" Type="varchar" MaxLength="50" />
+          <Property Name="client_nom" Type="varchar" MaxLength="50" />
+          <Property Name="client_prenom" Type="varchar" MaxLength="50" />
+          <Property Name="date_reservation" Type="date" />
+          <Property Name="jour_ecoules" Type="int" />
+          <Property Name="penalite_retard" Type="int" />
+        </EntityType>
+        <EntityType Name="t_voiture">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="voiture_num" Type="varchar" MaxLength="50" />
+          <Property Name="voiture_marque" Type="varchar" MaxLength="50" />
+          <Property Name="voiture_modele" Type="varchar" MaxLength="50" />
+          <Property Name="voiture_immatriculation" Type="varchar" MaxLength="50" />
+          <Property Name="disponibilite" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="LocationVoituresModelStoreContainer">
+          <EntitySet Name="t_client" EntityType="Self.t_client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_location" EntityType="Self.t_location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_retour" EntityType="Self.t_retour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_voiture" EntityType="Self.t_voiture" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LocationVoituresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="t_client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_nom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="client_prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="client_num_identite" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="client_adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="client_mobile" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="LocationVoituresEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t_client" EntityType="Self.t_client" />
+          <EntitySet Name="t_location" EntityType="LocationVoituresModel.t_location" />
+          <EntitySet Name="t_voiture" EntityType="LocationVoituresModel.t_voiture" />
+          <EntitySet Name="t_retour" EntityType="LocationVoituresModel.t_retour" />
+        </EntityContainer>
+        <EntityType Name="t_location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voiture_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="marque_modele_voiture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="frais_location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_debut" Type="DateTime" Precision="0" />
+          <Property Name="date_fin" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="t_voiture">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voiture_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="voiture_marque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="voiture_modele" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="voiture_immatriculation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="disponibilite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_retour">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="voiture_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_reservation" Type="DateTime" Precision="0" />
+          <Property Name="jour_ecoules" Type="Int32" />
+          <Property Name="penalite_retard" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LocationVoituresModelStoreContainer" CdmEntityContainer="LocationVoituresEntities">
+          <EntitySetMapping Name="t_client">
+            <EntityTypeMapping TypeName="LocationVoituresModel.t_client">
+              <MappingFragment StoreEntitySet="t_client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="client_nom" ColumnName="client_nom" />
+                <ScalarProperty Name="client_prenom" ColumnName="client_prenom" />
+                <ScalarProperty Name="client_num_identite" ColumnName="client_num_identite" />
+                <ScalarProperty Name="client_adresse" ColumnName="client_adresse" />
+                <ScalarProperty Name="client_mobile" ColumnName="client_mobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_location">
+            <EntityTypeMapping TypeName="LocationVoituresModel.t_location">
+              <MappingFragment StoreEntitySet="t_location">
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+                <ScalarProperty Name="frais_location" ColumnName="frais_location" />
+                <ScalarProperty Name="client_prenom" ColumnName="client_prenom" />
+                <ScalarProperty Name="client_nom" ColumnName="client_nom" />
+                <ScalarProperty Name="marque_modele_voiture" ColumnName="marque_modele_voiture" />
+                <ScalarProperty Name="voiture_num" ColumnName="voiture_num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_voiture">
+            <EntityTypeMapping TypeName="LocationVoituresModel.t_voiture">
+              <MappingFragment StoreEntitySet="t_voiture">
+                <ScalarProperty Name="disponibilite" ColumnName="disponibilite" />
+                <ScalarProperty Name="voiture_immatriculation" ColumnName="voiture_immatriculation" />
+                <ScalarProperty Name="voiture_modele" ColumnName="voiture_modele" />
+                <ScalarProperty Name="voiture_marque" ColumnName="voiture_marque" />
+                <ScalarProperty Name="voiture_num" ColumnName="voiture_num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_retour">
+            <EntityTypeMapping TypeName="LocationVoituresModel.t_retour">
+              <MappingFragment StoreEntitySet="t_retour">
+                <ScalarProperty Name="penalite_retard" ColumnName="penalite_retard" />
+                <ScalarProperty Name="jour_ecoules" ColumnName="jour_ecoules" />
+                <ScalarProperty Name="date_reservation" ColumnName="date_reservation" />
+                <ScalarProperty Name="client_prenom" ColumnName="client_prenom" />
+                <ScalarProperty Name="client_nom" ColumnName="client_nom" />
+                <ScalarProperty Name="voiture_num" ColumnName="voiture_num" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,65 @@
+﻿@model VoitureLocation.Models.t_voiture
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details de la voiture</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.voiture_num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.voiture_num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.voiture_marque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.voiture_marque)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.voiture_modele)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.voiture_modele)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.voiture_immatriculation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.voiture_immatriculation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.disponibilite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.disponibilite)
+        </dd>
+
+    </dl>
+</div>
+
+
+<div class="btn btn-success">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+|
+<div class="btn btn-info">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id })
+</div>
+
+
+

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocationVoituresModelStoreContainer" CdmEntityContainer="LocationVoituresEntities">
+    <EntitySetMapping Name="t_client">
+      <EntityTypeMapping TypeName="LocationVoituresModel.t_client">
+        <MappingFragment StoreEntitySet="t_client">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="client_nom" ColumnName="client_nom" />
+          <ScalarProperty Name="client_prenom" ColumnName="client_prenom" />
+          <ScalarProperty Name="client_num_identite" ColumnName="client_num_identite" />
+          <ScalarProperty Name="client_adresse" ColumnName="client_adresse" />
+          <ScalarProperty Name="client_mobile" ColumnName="client_mobile" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_location">
+      <EntityTypeMapping TypeName="LocationVoituresModel.t_location">
+        <MappingFragment StoreEntitySet="t_location">
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="frais_location" ColumnName="frais_location" />
+          <ScalarProperty Name="client_prenom" ColumnName="client_prenom" />
+          <ScalarProperty Name="client_nom" ColumnName="client_nom" />
+          <ScalarProperty Name="marque_modele_voiture" ColumnName="marque_modele_voiture" />
+          <ScalarProperty Name="voiture_num" ColumnName="voiture_num" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_voiture">
+      <EntityTypeMapping TypeName="LocationVoituresModel.t_voiture">
+        <MappingFragment StoreEntitySet="t_voiture">
+          <ScalarProperty Name="disponibilite" ColumnName="disponibilite" />
+          <ScalarProperty Name="voiture_immatriculation" ColumnName="voiture_immatriculation" />
+          <ScalarProperty Name="voiture_modele" ColumnName="voiture_modele" />
+          <ScalarProperty Name="voiture_marque" ColumnName="voiture_marque" />
+          <ScalarProperty Name="voiture_num" ColumnName="voiture_num" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_retour">
+      <EntityTypeMapping TypeName="LocationVoituresModel.t_retour">
+        <MappingFragment StoreEntitySet="t_retour">
+          <ScalarProperty Name="penalite_retard" ColumnName="penalite_retard" />
+          <ScalarProperty Name="jour_ecoules" ColumnName="jour_ecoules" />
+          <ScalarProperty Name="date_reservation" ColumnName="date_reservation" />
+          <ScalarProperty Name="client_prenom" ColumnName="client_prenom" />
+          <ScalarProperty Name="client_nom" ColumnName="client_nom" />
+          <ScalarProperty Name="voiture_num" ColumnName="voiture_num" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

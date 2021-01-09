@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style>
+    .titre{
+        margin: 5% 0 3% 0;
+    }
+</style>
+
+<div class="titre">
+    <h1 class="text-success">Location de voiture</h1>
+</div>
+
+
+
+@model IEnumerable<VoitureLocation.Models.LocationViewModel>
+
+<div class="row">
+
+    @* C'est un form qui va envoyer en POST les donnés encodés *@
+
+    <div class="col-sm-4">
+
+        @using (Html.BeginForm("Save", "Location", FormMethod.Post, new { id = "popupForm" }))
+        {
+            
+
+            <div class="form-group">
+                <label class="form-label">Numero de voiture</label>
+                <select class="form-control" id="carno" name="voiture_num" placeholder="Numero de voiture" required>
+                    <option>Selectionez une voiture</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Marque et modele de la voiture</label>
+                <input type="text" id="carname" name="marque_modele_voiture" class="form-control" placeholder="Marque et modele de la voiture" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Client Nom</label>
+                <input type="text" id="custname" name="client_nom" class="form-control" placeholder="Nom du client" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Client Prenom</label>
+                <input type="text" id="custpre" name="client_prenom" class="form-control" placeholder="Prenom du client" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Frai location</label>
+                <input type="text" id="fee" name="frais_location" class="form-control" placeholder="Frais de location" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Date de debut</label>
+                <input type="date" id="sdate" name="date_debut" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Date de fin</label>
+                <input type="date" id="edate" name="date_fin" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Ajouter la location" class="btn btn-success btn-block" />
+            </div>
+
+        }
+    </div>
+
+    <div class="col-sm-8">
+
+        <table class="table table-striped table-hover">
+            <tr class="bg-success">
+                <th>Numero de la voiture</th>
+                <th>Marque et modele de la voiture</th>
+                <th>Nom du client</th>
+                <th>Prenom du client</th>
+                <th>Frais de location</th>
+                <th>Date de reservation</th>
+                <th>Date de retour</th>
+                <th>Disponibilite</th>
+            </tr>
+
+            @foreach(var item in Model)
+            {
+        <tr>
+            <td>@item.voiture_num</td>
+            <td>@item.marque_modele_voiture</td>
+            <td>@item.client_nom</td>
+            <td>@item.client_prenom</td>
+            <td>@item.frais_location</td>
+            <td>@item.date_debut</td>
+            <td>@item.date_fin</td>
+            @if (item.disponibilite == "non")
+            {
+                <td class="bg-danger">@item.disponibilite</td>
+            }
+            else
+            {
+                <td class="bg-success">@item.disponibilite</td>
+            }
+
+
+
+        </tr>
+            }
+
+
+        </table>
+
+    </div>
+
+
+    </div>
+
+
+    @* ////////////////// [ AJAX & JQUERY] /////////////////// *@
+
+    @section scripts
+{
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script>
+            $(document).ready(function () {
+                getCar(); // Recupere la liste de tous les numero de voitures
+
+                getClient(); // Recupere le prenom d'un client en fonction de son nom de famille
+
+                getCarName(); // Recupere la marque et le modele d'une voiture en fonction de son numero
+
+                load(); /* Il desactive tous les input tant qu'on a pas choisi une voiture ou
+                            ou que la voiture n'est pas disponible*/
+            });
+
+            function load() {
+
+                $("#carname").attr("disabled", "disabled");
+
+                $("#custname").attr("disabled", "disabled");
+
+                $("#custpre").attr("disabled", "disabled");
+
+                $("#fee").attr("disabled", "disabled");
+
+                $("#sdate").attr("disabled", "disabled");
+
+                $("#edate").attr("disabled", "disabled");
+
+            }
+
+            /* FONCTION AJAX QUI NOUS PERMET DE RECUPERER LES NUMERO DE VOITURE QUI SE TROUVENT
+             * DANS LA BASE DE DONNES ET AVEC JQUERY, JE LES AFFICHE DANS LE FORM "SELECT" */
+
+            function getCar() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/location/GetCar', // Action methode du controlleur location
+                    dataType: 'JSON',
+                    success: function (data) {
+
+                        var carNum = '';
+
+                        $.each(data, function (i, o) {
+                            carNum += '<option>' + o.voiture_num + '</option>';
+
+                        });
+
+                        $('#carno').append(carNum);
+
+                        console.log(data);
+                    }
+                });
+            }
+
+            /* FONCTION AJAX QUI NOUS PERMET DE RECUPERER LA MARQUE ET LE MODELE QUI SE TROUVENT
+            * DANS LA BASE DE DONNES ET AVEC JQUERY JE LES AFFICHE DANS L'INPUT DES QUE LA PERSONNE
+            * CHOISI UN NUMER DE VOITURE*/
+            function getCarName() {
+                $("#carno").change(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/location/GetCarNum?num=' + $("#carno").children("option:selected").val(), // Action methode du controlleur location
+                        dataType: 'JSON',
+                        success: function (data) {
+
+                            console.log(data);
+                            var carname = data[0] + " " + data[1];
+                            $("#carname").val(carname);
+
+                        }
+                    });
+                });
+            }
+
+
+            /* FONCTION AJAX QUI NOUS PERMET DE RECUPERER LE PRENOM DU CLIENT QUI SE TROUVE
+            * DANS LA BASE DE DONNES ET AVEC JQUERY JE LES AFFICHE DANS L'INPUT DES QUE LA PERSONNE
+            * ENTRE UN NOM DE FAMILLE*/
+
+            function getClient() {
+
+                $("#custname").keyup(function (e) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/location/Getid?name=' + $("#custname").val(), // Action methode du controlleur location
+                        dataType: 'JSON',
+                        success: function (data) {
+                            console.log(data);
+                            $("#custpre").val(data)
+                        }
+                    });
+                });
+            }
+
+            $("#carno").change(function () {
+
+                disponible();
+
+            });
+
+            function disponible() {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/location/GetDispo?num=' + $("#carno").val(), // Action methode du controlleur location
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data);
+
+                        var dispo = data;
+
+                        if (dispo == "oui") {
+
+                            $("#carname").removeAttr('disabled');
+
+                            $("#custname").removeAttr('disabled');
+
+                            $("#custpre").removeAttr('disabled');
+
+                            $("#fee").removeAttr('disabled');
+
+                            $("#sdate").removeAttr('disabled');
+
+                            $("#edate").removeAttr('disabled');
+
+                        }
+
+                        else {
+
+                            $("#carname").attr("disabled", "disabled");
+
+                            $("#custname").attr("disabled", "disabled");
+
+                            $("#custpre").attr("disabled", "disabled");
+
+                            $("#fee").attr("disabled", "disabled");
+
+                            $("#sdate").attr("disabled", "disabled");
+
+                            $("#edate").attr("disabled", "disabled");
+                        }
+
+                    }
+                });
+            }
+
+
+
+
+        </script>
+    }

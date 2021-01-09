@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .titre {
+        margin: 5% 0 3% 0;
+    }
+</style>
+
+<div class="titre">
+    <h1>Retour des voitures</h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+
+        @using (Html.BeginForm("Save", "Retour", FormMethod.Post, new { id = "popupForm" }))
+        {
+
+
+            <div class="form-group">
+                <label class="form-label">Numero de la voiture a retourner</label>
+                <input type="text" id="carid" name="voiture_num" class="form-control" placeholder="Numero de la voiture" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nom du client</label>
+                <input type="text" id="clientnom" name="client_nom" class="form-control" placeholder="Nom du client" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Prenom du client</label>
+                <input type="text" id="clientprenom" name="client_prenom" class="form-control" placeholder="Prenom du client" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Date de reservation</label>
+                <input type="text" id="dateRes" name="date_reservation" class="form-control" placeholder="Prenom du client" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Jours restant</label>
+                <input type="text" id="elap" name="jour_ecoules" class="form-control" placeholder="Prenom du client" required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Penalités pour le retard</label>
+                <input type="text" id="penalite" name="penalite_retard" class="form-control" placeholder="Prenom du client" required />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Enregistrer le retour" class="btn btn-success btn-block" />
+            </div>
+
+        }
+    </div>
+
+</div>
+
+
+@* ////////////////// [ AJAX & JQUERY] /////////////////// *@
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            getCarNum();
+        });
+
+
+        /* FONCTION AJAX QUI NOUS PERMET DE RECUPERER LE PRENOM DU CLIENT QUI SE TROUVENT
+        * DANS LA BASE DE DONNES ET AVEC JQUERY JE LES AFFICHE DANS L'INPUT DES QUE LA PERSONNE
+        * ENTRE UN NOM DE FAMILLE*/
+        function getCarNum() {
+
+            $("#carid").keyup(function (e) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/retour/GetVoitureNum?num=' + $("#carid").val(), // Action methode du controlleur location
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data);
+
+                        $('#clientnom').val(data[0].clientNom);
+                        $('#clientprenom').val(data[0].clientPrenom);
+                        $('#dateRes').val(new Date(parseInt(data[0].dateDebut.substr(6))).toLocaleDateString());
+                        $('#elap').val(data[0].joursEcoule);
+
+                        var elap = data[0].joursEcoule;
+
+                        /* CONDITION POUR VERIFIER SI LA PERSONNE A RENDU
+                        LA VOITURE EN RETARD,
+                          -  SI OUI: POUR CHAQUE JOUR DE RETARD IL DEVRA PAYER 100€ EN PLUS.
+                          -  SI NON: IL NE DEVRA PAS PAYER DE PENALITES */
+
+                        if (elap > 0) {
+                            var penalite = elap * 100;
+                            $('#penalite').val(penalite);
+                        }
+                        else {
+                            var penalite = 0;
+                            $('#penalite').val(penalite);
+                        }
+
+
+                    }
+                });
+            });
+        }
+    </script>
+}
+

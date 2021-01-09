@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocationVoituresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="t_client">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="client_nom" Type="varchar" MaxLength="100" />
+    <Property Name="client_prenom" Type="varchar" MaxLength="100" />
+    <Property Name="client_num_identite" Type="varchar" MaxLength="100" />
+    <Property Name="client_adresse" Type="varchar" MaxLength="100" />
+    <Property Name="client_mobile" Type="int" />
+  </EntityType>
+  <EntityType Name="t_location">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="voiture_num" Type="varchar" MaxLength="50" />
+    <Property Name="marque_modele_voiture" Type="varchar" MaxLength="50" />
+    <Property Name="client_nom" Type="varchar" MaxLength="50" />
+    <Property Name="client_prenom" Type="varchar" MaxLength="50" />
+    <Property Name="frais_location" Type="varchar" MaxLength="50" />
+    <Property Name="date_debut" Type="date" />
+    <Property Name="date_fin" Type="date" />
+  </EntityType>
+  <EntityType Name="t_retour">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="voiture_num" Type="varchar" MaxLength="50" />
+    <Property Name="client_nom" Type="varchar" MaxLength="50" />
+    <Property Name="client_prenom" Type="varchar" MaxLength="50" />
+    <Property Name="date_reservation" Type="date" />
+    <Property Name="jour_ecoules" Type="int" />
+    <Property Name="penalite_retard" Type="int" />
+  </EntityType>
+  <EntityType Name="t_voiture">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="voiture_num" Type="varchar" MaxLength="50" />
+    <Property Name="voiture_marque" Type="varchar" MaxLength="50" />
+    <Property Name="voiture_modele" Type="varchar" MaxLength="50" />
+    <Property Name="voiture_immatriculation" Type="varchar" MaxLength="50" />
+    <Property Name="disponibilite" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="LocationVoituresModelStoreContainer">
+    <EntitySet Name="t_client" EntityType="Self.t_client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_location" EntityType="Self.t_location" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_retour" EntityType="Self.t_retour" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_voiture" EntityType="Self.t_voiture" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
